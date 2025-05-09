@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine Results</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Search Engine</h1>
+        <form id="search-form">
+            <div class="search-row">
+                <input type="text" id="search-input" placeholder="Enter your search query">
+                <button type="submit">Search</button>
+            </div>
+            <div class="advanced-options">
+                <div class="search-row">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category">
+                        <option value="">All</option>
+                        <option value="web">Web</option>
+                        <option value="images">Images</option>
+                        <option value="news">News</option>
+                    </select>
+                </div>
+                <div class="search-row">
+                    <label for="date-range">Date:</label>
+                    <select id="date-range" name="date_range">
+                        <option value="">Any time</option>
+                        <option value="day">Past 24h</option>
+                        <option value="week">Past week</option>
+                        <option value="month">Past month</option>
+                    </select>
+                </div>
+                <div class="search-row">
+                    <label>
+                        <input type="checkbox" id="exact-match" name="exact_match" value="1">
+                        Exact match
+                    </label>
+                </div>
+            </div>
+        </form>
+    </header>
+    <main>
+        <div id="results-container"></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
