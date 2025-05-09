@@ -5,30 +5,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mock data with 10 entries
     const mockData = [
-        { id: 1, title: "Introduction to JavaScript", content: "Learn the basics of JavaScript programming", category: "web", date: "2023-05-15", exactMatch: false },
-        { id: 2, title: "Python for Data Science", content: "Explore data analysis with Python", category: "web", date: "2023-06-20", exactMatch: false },
-        { id: 3, title: "Beautiful Sunset", content: "A stunning image of a sunset over the ocean", category: "images", date: "2023-04-10", exactMatch: false },
-        { id: 4, title: "Breaking News: Tech Innovation", content: "New AI breakthrough announced", category: "news", date: "2023-07-05", exactMatch: false },
-        { id: 5, title: "Healthy Recipes", content: "Quick and easy vegetarian meals", category: "web", date: "2023-03-25", exactMatch: false },
-        { id: 6, title: "Space Exploration Update", content: "NASA's latest mission to Mars", category: "news", date: "2023-07-01", exactMatch: false },
-        { id: 7, title: "Cute Puppies", content: "Adorable images of various dog breeds", category: "images", date: "2023-06-12", exactMatch: false },
-        { id: 8, title: "JavaScript", content: "Advanced JavaScript techniques and best practices", category: "web", date: "2023-05-30", exactMatch: true },
-        { id: 9, title: "Climate Change Report", content: "Latest findings on global warming", category: "news", date: "2023-07-10", exactMatch: false },
-        { id: 10, title: "Web Development Trends", content: "Upcoming technologies in web development", category: "web", date: "2023-06-28", exactMatch: false },
+        { id: 1, title: "Coconut Vanilla Over Ice", content: "A delicious coconut flavor with a soft hint of vanilla, harmoniously combined with a smooth, rounded Arabica blend.", category: "coffee", type: "vertuo", exactMatch: false },
+        { id: 2, title: "Paris Espresso", content: "This Parisian café experience in a cup is mild and balanced, with the light-roasted Robustas delicate bitterness gracing the softer biscuity aromas.", category: "coffee", type: "original", exactMatch: false },
+        { id: 3, title: "Stockholm Lungo", content: "An intense, all-Arabica coffee best enjoyed black to savor the pure taste beloved by Swedes  malty, with a hint of rich bitterness.", category: "coffee", type: "original", exactMatch: false },
+        { id: 4, title: "Golden Caramel", content: "This flavored blend delights with a classic caramel flavor combined with sweet biscuit notes.", category: "coffee", type: "vertuo", exactMatch: false },
+        { id: 5, title: "Creatista Pro", content: "Premium espresso machine, with electronic recipe maker, digital touch screen, hot water and integrated steam pipe to create latte art. Prepares Cappuccino, Latte and more", category: "machines", type: "original", exactMatch: false },
+        { id: 6, title: "Essenza Mini Piano Black", content: "Small, easy to use and doesn't compromise on taste.", category: "machines", type: "original", exactMatch: false },
+        { id: 7, title: "VertuoPlus", content: "Exceptional coffee made easy for a unique coffee experience at home.", category: "machines", type: "vertuo", exactMatch: false },
+        { id: 8, title: "Barista Recipe Maker", content: "Barista is an invitation to discover a wide world of recipe possibilities", category: "accessories", type: "vertuo", exactMatch: true },
+        { id: 9, title: "Cold Brew Starter Kit", content: "Enjoy the craft of cold brew", category: "coffee", type: "vertuo", exactMatch: false },
+        { id: 10, title: "Martini Glass Set", content: "To celebrate in style", category: "accessories", type: "", exactMatch: false },
     ];
 
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const query = searchInput.value.toLowerCase();
         const category = document.getElementById('category').value;
-        const dateRange = document.getElementById('date-range').value;
+        const type = document.getElementById('type').value;
         const exactMatch = document.getElementById('exact-match').checked;
 
-        const results = searchData(query, category, dateRange, exactMatch);
+        const results = searchData(query, category, type, exactMatch);
         displayResults(results);
     });
 
-    function searchData(query, category, dateRange, exactMatch) {
+    function searchData(query, category, type, exactMatch) {
         return mockData.filter(item => {
             const matchesQuery = exactMatch
                 ? (item.title.toLowerCase() === query || item.content.toLowerCase() === query)
@@ -36,30 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const matchesCategory = category === '' || item.category === category;
 
-            const matchesDate = checkDateRange(item.date, dateRange);
+            const matchesType = type === '' || item.type === type;
 
             const matchesExactMatch = !exactMatch || item.exactMatch;
 
-            return matchesQuery && matchesCategory && matchesDate && matchesExactMatch;
-        });
-    }
-
-    function checkDateRange(itemDate, dateRange) {
-        if (dateRange === '') return true;
-
-        const currentDate = new Date();
-        const itemDateTime = new Date(itemDate).getTime();
-
-        switch (dateRange) {
-            case 'day':
-                return itemDateTime > currentDate.getTime() - 86400000; // 24 hours in milliseconds
-            case 'week':
-                return itemDateTime > currentDate.getTime() - 604800000; // 7 days in milliseconds
-            case 'month':
-                return itemDateTime > currentDate.getTime() - 2592000000; // 30 days in milliseconds
-            default:
-                return true;
-        }
+            return matchesQuery && matchesCategory && matchesType && matchesExactMatch;
+        });   
     }
 
     function displayResults(results) {
@@ -78,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="#" class="result-link">
                     <h3>${item.title}</h3>
                     <p>${item.content}</p>
-                    <small>Category: ${item.category} | Date: ${item.date}</small>
+                    <small>Category: ${item.category} | Type: ${item.type}</small>
                     <span class="url">https://example.com/result/${item.id}</span>
                 </a>
             `;
